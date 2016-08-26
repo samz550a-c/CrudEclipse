@@ -16,7 +16,12 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean
 public class PrincipalCtr implements Serializable {
-    private String bandera;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String bandera;
     
     private String hora;
     
@@ -28,7 +33,7 @@ public class PrincipalCtr implements Serializable {
     
     public PrincipalCtr()
     {
-        bandera = "MMMfin2";
+        bandera = "bandera desde principalCTR";
         
         saludo = "pedito";
         simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
