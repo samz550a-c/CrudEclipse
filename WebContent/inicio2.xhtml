@@ -4,20 +4,39 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="/plantillas/plantillaPrincipal.xhtml">
-	
-		<ui:define name="titulo">Título Principal</ui:define>
-	
+<ui:composition template="/plantillas/plantillaPrincipal.xhtml">
+
+	<ui:define name="titulo">Título Principal</ui:define>
+
 	<ui:define name="contenido">
-	<h:outputText value=">>> 1235 #{principalMB.saludo} #{principalCtr.bandera}"></h:outputText>
-	<h:outputText value="#{principalCtr.bandera}"/>
-	
-	<p:dataTable var="car" value="#{pruebaMB.listar()}">
-    <p:column headerText="nombre">
-        <h:outputText value="#{car.nombre}" />
-    </p:column>
-    </p:dataTable>
-	
+		<h:form>
+		<h:outputText
+			value=">>> 1235 #{principalMB.saludo} #{principalCtr.bandera}"></h:outputText>
+		<h:outputText value="#{principalCtr.bandera}" />
+
+		<p:dataTable var="car" value="#{pruebaMB.listar()}">
+			<p:column headerText="nombre">
+				<h:outputText value="#{car.nombre}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:commandButton id="boton" value="Agregar"
+			onclick="PF('dialogoVar').show();" />
+
+		<p:dialog header="xDialogo de Insertar" width="500" minHeight="160"
+			height="200" widgetVar="dialogoVar" modal="true">
+
+			<p:panelGrid columns="1" style="border: none">
+			<h:outputText value="Por favor ingrese un nuevo nombre a registrar:" />
+			<p:inputText id="nuevoNombre" value="#{pruebaMB.nombre}"/>
+			
+			<p:commandButton id="botonDialogo" value="Registrar" actionListener="#{pruebaMB.registrarListener()}"/> 
+			</p:panelGrid>
+
+			
+			
+		</p:dialog>
+		</h:form>
 	</ui:define>
-	</ui:composition>
+</ui:composition>
 </html>
