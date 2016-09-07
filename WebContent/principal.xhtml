@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Página Principal...</title>
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<h1>Tabla Principal</h1>
+
+		<p:dataTable id="tabla" var="registro" value="#{pruebaMB.listar()}"
+			selectionMode="single" selection="#{pruebaMB.registroSeleccionado}"
+			rowKey="#{registro.id}">
+
+			<f:facet name="header">Listado de la base</f:facet>
+			<p:column headerText="id">
+				<h:outputText value="#{registro.id}" />
+			</p:column>
+			<p:column headerText="Nombre">
+				<h:outputText value="#{registro.nombre}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:commandButton id="botonAgregar" value="Agregar" process="@this"
+			update="contenidoDialogo"
+			actionListener="#{pruebaMB.inicializarRegistro()}"
+			onclick="PF('dialogoWidget').show();" />
+
+		<p:commandButton id="botonModificar" value="Modificar"
+			process="@this tabla" update="contenidoDialogo"
+			actionListener="#{pruebaMB.preparandoRegistro()}"
+			onclick="PF('dialogoWidget').show();" />
+
+		<p:dialog id="dialogo" widgetVar="dialogoWidget" modal="true"
+			header="Gestionar registro" width="500" minHeight="160" height="200">
+
+			<h:panelGrid id="contenidoDialogo" columns="1" style="border: none">
+
+				<h:panelGrid id="conDatos" columns="1"
+					rendered="#{pruebaMB.origen eq 'agregar' or pruebaMB.registroSeleccionado ne null}">
+
+					<h:panelGrid columns="2">
+						<h:outputText value="Nombre:" />
+						<p:inputText id="nuevoNombre"
+							value="#{pruebaMB.registroSeleccionado.nombre}" />
+					</h:panelGrid>
+
+					<p:commandButton id="botonDialogo" value="Registrar"
+						process="@this nuevoNombre" update="tabla dialogo"
+						actionListener="#{pruebaMB.registrarListener}"
+						oncomplete="PF('dialogoWidget').hide()" />
+				</h:panelGrid>
+				<h:panelGrid id="sinDatos" columns="1"
+					rendered="#{pruebaMB.origen == 'modificar' and pruebaMB.registroSeleccionado == null}">
+					<h:outputText
+						value="Por favor seleccione un registro de la lista para proceder." />
+				</h:panelGrid>
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

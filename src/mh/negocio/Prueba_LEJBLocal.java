@@ -12,4 +12,6 @@ public interface Prueba_LEJBLocal {
 	public List<Prueba1> listarPrueba() throws Exception;
 	
 	public void guardar(Prueba1 prueba1);
+	
+	public void modificar(Prueba1 prueba1);
 }

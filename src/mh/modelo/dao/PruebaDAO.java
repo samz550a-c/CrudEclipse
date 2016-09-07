@@ -69,4 +69,9 @@ public class PruebaDAO {
     	prueba1.setId( this.ultimoId() + 1);
     	em.persist(prueba1);
     }
+    
+    public void modificar(Prueba1 prueba1)
+    {
+    	em.merge(prueba1);
+    }
 }

@@ -36,4 +36,9 @@ public class Prueba_LEJB implements Prueba_LEJBLocal {
     {
     	this.pruebaDAO.crear(prueba1);
     }
+    
+    public void modificar(Prueba1 prueba1)
+    {
+    	this.pruebaDAO.modificar(prueba1);
+    }
 }
