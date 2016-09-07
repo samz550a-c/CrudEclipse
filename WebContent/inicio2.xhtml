@@ -9,12 +9,13 @@
 	<ui:define name="titulo">Título Principal</ui:define>
 
 	<ui:define name="contenido">
-		<h:form>
+		<h:form id="form1">
+		<h:outputText value="aBCdeFgHi"/>
 		<h:outputText
 			value=">>> 1235 #{principalMB.saludo} #{principalCtr.bandera}"></h:outputText>
 		<h:outputText value="#{principalCtr.bandera}" />
 
-		<p:dataTable var="car" value="#{pruebaMB.listar()}">
+		<p:dataTable id="tabla" var="car" value="#{pruebaMB.listar()}">
 			<p:column headerText="nombre">
 				<h:outputText value="#{car.nombre}" />
 			</p:column>
@@ -23,14 +24,17 @@
 		<p:commandButton id="boton" value="Agregar"
 			onclick="PF('dialogoVar').show();" />
 
-		<p:dialog header="xDialogo de Insertar" width="500" minHeight="160"
+		<p:dialog id="dialogo" header="xyz_Dialogo de Insertar" width="500" minHeight="160"
 			height="200" widgetVar="dialogoVar" modal="true">
 
 			<p:panelGrid columns="1" style="border: none">
 			<h:outputText value="Por favor ingrese un nuevo nombre a registrar:" />
 			<p:inputText id="nuevoNombre" value="#{pruebaMB.nombre}"/>
 			
-			<p:commandButton id="botonDialogo" value="Registrar" actionListener="#{pruebaMB.registrarListener()}"/> 
+			<p:commandButton id="botonDialogo" value="Registrar" 
+				process="@this nuevoNombre" update="tabla"
+				actionListener="#{pruebaMB.registrarListener}" 
+				oncomplete="PF('dialogoVar').hide()"/> 
 			</p:panelGrid>
 
 			

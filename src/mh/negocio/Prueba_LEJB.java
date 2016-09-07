@@ -32,5 +32,8 @@ public class Prueba_LEJB implements Prueba_LEJBLocal {
 		return this.pruebaDAO.listarPrueba();
 	}
 
-    
+    public void guardar(Prueba1 prueba1)
+    {
+    	this.pruebaDAO.crear(prueba1);
+    }
 }

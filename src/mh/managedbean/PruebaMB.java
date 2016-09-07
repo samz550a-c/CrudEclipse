@@ -38,7 +38,13 @@ public class PruebaMB {
 	{
 		LOG.info("Entrando a registrar");
 		
+		LOG.info("Valor nombre= " + this.nombre);
 		
+		Prueba1 prueba1 = new Prueba1();
+		prueba1.setNombre( this.nombre );
+		this.Prueba_LEJBLocal.guardar(prueba1);
+		
+		LOG.info("debería haber grabado.");
 	}
 	//----------------------------------------------
 	

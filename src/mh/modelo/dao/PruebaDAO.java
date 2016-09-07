@@ -47,4 +47,26 @@ public class PruebaDAO {
             throw new Exception("Error - public List<Prueba1> listarIdPerson(int idPerson) throws LogicalTireException", e);
         }
     }
+    
+    //=====================================================================================
+    private int ultimoId()
+    {
+    	Query query = em.createQuery("select MAX(p.id) from Prueba1 p");
+    	
+    	Number numero = (Number) query.getSingleResult();
+    	
+    	int respuesta = -1;
+    	if(numero != null)
+    	{
+    		respuesta = numero.intValue();
+    	}
+    	
+    	return respuesta;
+    }
+    
+    public void crear(Prueba1 prueba1)
+    {
+    	prueba1.setId( this.ultimoId() + 1);
+    	em.persist(prueba1);
+    }
 }

@@ -10,4 +10,6 @@ import mh.modelo.entidades.Prueba1;
 public interface Prueba_LEJBLocal {
 
 	public List<Prueba1> listarPrueba() throws Exception;
+	
+	public void guardar(Prueba1 prueba1);
 }
