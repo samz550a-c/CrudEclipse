@@ -10,11 +10,16 @@
 </h:head>
 <h:body>
 	<h:form id="form1">
+
 		<h1>Tabla Principal</h1>
+
+		<hr />
+
+		<br />
 
 		<p:dataTable id="tabla" var="registro" value="#{pruebaMB.listar()}"
 			selectionMode="single" selection="#{pruebaMB.registroSeleccionado}"
-			rowKey="#{registro.id}">
+			rowKey="#{registro.id}" paginator="true" rows="10">
 
 			<f:facet name="header">Listado de la base</f:facet>
 			<p:column headerText="id">
@@ -25,16 +30,28 @@
 			</p:column>
 		</p:dataTable>
 
-		<p:commandButton id="botonAgregar" value="Agregar" process="@this"
-			update="contenidoDialogo"
-			actionListener="#{pruebaMB.inicializarRegistro()}"
-			onclick="PF('dialogoWidget').show();" />
 
-		<p:commandButton id="botonModificar" value="Modificar"
-			process="@this tabla" update="contenidoDialogo"
-			actionListener="#{pruebaMB.preparandoRegistro()}"
-			onclick="PF('dialogoWidget').show();" />
+		<p:spacer height="3" />
+		<h:panelGrid columns="3">
+			<p:commandButton id="botonAgregar" value="Agregar" process="@this"
+				update="contenidoDialogo"
+				actionListener="#{pruebaMB.inicializarRegistro()}"
+				onclick="PF('dialogoWidget').show();" />
 
+			<p:commandButton id="botonModificar" value="Modificar"
+				process="@this tabla" update="contenidoDialogo"
+				actionListener="#{pruebaMB.preparandoRegistro()}"
+				onclick="PF('dialogoWidget').show();" />
+				
+			<p:commandButton id="botonEliminar" value="Eliminar"
+				process="@this tabla" update="contenidoDialogo"
+				actionListener="#{pruebaMB.preparandoRegistro()}"
+				onclick="PF('dialogoWidget').show();" />
+					
+		</h:panelGrid>
+
+		<!-- [INICIO] ######################## FIN DIALOGO ############################## -->
+		
 		<p:dialog id="dialogo" widgetVar="dialogoWidget" modal="true"
 			header="Gestionar registro" width="500" minHeight="160" height="200">
 
@@ -61,6 +78,8 @@
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
+		
+		<!-- [FIN   ] ######################## FIN DIALOGO ############################## -->
 	</h:form>
 </h:body>
 </html>
