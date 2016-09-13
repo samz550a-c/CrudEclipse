@@ -11,6 +11,7 @@
 <h:body>
 	<h:form id="form1">
 
+		<p:growl id="mensaje" showDetail="true" showSummary="true"></p:growl>
 		<h1>Tabla Principal</h1>
 
 		<hr />
@@ -34,31 +35,31 @@
 		<p:spacer height="3" />
 		<h:panelGrid columns="3">
 			<p:commandButton id="botonAgregar" value="Agregar" process="@this"
-				update="contenidoDialogo"
+				update="contenidoDialogo mensaje"
 				actionListener="#{pruebaMB.inicializarRegistro()}"
 				onclick="PF('dialogoWidget').show();" />
 
 			<p:commandButton id="botonModificar" value="Modificar"
-				process="@this tabla" update="contenidoDialogo"
-				actionListener="#{pruebaMB.preparandoRegistro()}"
+				process="@this tabla" update="contenidoDialogo mensaje"
+				actionListener="#{pruebaMB.preparandoModificar()}"
 				onclick="PF('dialogoWidget').show();" />
-				
+
 			<p:commandButton id="botonEliminar" value="Eliminar"
-				process="@this tabla" update="contenidoDialogo"
-				actionListener="#{pruebaMB.preparandoRegistro()}"
+				process="@this tabla" update="contenidoDialogo mensaje"
+				actionListener="#{pruebaMB.preparandoEliminar()}"
 				onclick="PF('dialogoWidget').show();" />
-					
+
 		</h:panelGrid>
 
 		<!-- [INICIO] ######################## FIN DIALOGO ############################## -->
-		
+
 		<p:dialog id="dialogo" widgetVar="dialogoWidget" modal="true"
 			header="Gestionar registro" width="500" minHeight="160" height="200">
 
 			<h:panelGrid id="contenidoDialogo" columns="1" style="border: none">
 
-				<h:panelGrid id="conDatos" columns="1"
-					rendered="#{pruebaMB.origen eq 'agregar' or pruebaMB.registroSeleccionado ne null}">
+				<h:panelGrid id="conDatos1" columns="1"
+					rendered="#{pruebaMB.origen eq 'agregar'}" title="Agregar">
 
 					<h:panelGrid columns="2">
 						<h:outputText value="Nombre:" />
@@ -66,19 +67,53 @@
 							value="#{pruebaMB.registroSeleccionado.nombre}" />
 					</h:panelGrid>
 
-					<p:commandButton id="botonDialogo" value="Registrar"
-						process="@this nuevoNombre" update="tabla dialogo"
+					<p:commandButton id="botonDialogo1" value="Registrar"
+						process="@this nuevoNombre" update="tabla dialogo mensaje"
 						actionListener="#{pruebaMB.registrarListener}"
 						oncomplete="PF('dialogoWidget').hide()" />
 				</h:panelGrid>
+				<h:panelGrid id="conDatos2" columns="1"
+					rendered="#{pruebaMB.origen eq 'modificar' and pruebaMB.registroSeleccionado ne null}"
+					title="Modificar">
+
+					<h:panelGrid columns="2">
+						<h:outputText value="Nombre:" />
+						<p:inputText id="nuevoNombre2"
+							value="#{pruebaMB.registroSeleccionado.nombre}" />
+					</h:panelGrid>
+
+					<p:commandButton id="botonDialogo2" value="Registrar"
+						process="@this nuevoNombre2" update="tabla dialogo mensaje"
+						actionListener="#{pruebaMB.registrarListener}"
+						oncomplete="PF('dialogoWidget').hide()" />
+				</h:panelGrid>
+				<h:panelGrid id="conDatos3" columns="1"
+					rendered="#{pruebaMB.origen eq 'eliminar' and pruebaMB.registroSeleccionado ne null}"
+					title="Modificar">
+
+					<h:panelGrid columns="1">
+						<h:outputText
+							value="¿Está seguro de eliminar el registro seleccionado?" />
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="2">
+						<p:commandButton id="botonDialogo3" value="Cancelar"
+							process="@this" update="" oncomplete="PF('dialogoWidget').hide()" />
+						<p:commandButton id="botonDialogo4" value="Eliminar"
+							process="@this" update="tabla dialogo mensaje"
+							actionListener="#{pruebaMB.registrarListener}"
+							oncomplete="PF('dialogoWidget').hide()" />
+					</h:panelGrid>
+				</h:panelGrid>
 				<h:panelGrid id="sinDatos" columns="1"
-					rendered="#{pruebaMB.origen == 'modificar' and pruebaMB.registroSeleccionado == null}">
+					rendered="#{(pruebaMB.origen == 'modificar' or pruebaMB.origen == 'eliminar') and pruebaMB.registroSeleccionado == null}">
 					<h:outputText
 						value="Por favor seleccione un registro de la lista para proceder." />
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:dialog>
-		
+
 		<!-- [FIN   ] ######################## FIN DIALOGO ############################## -->
 	</h:form>
 </h:body>

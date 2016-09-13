@@ -74,4 +74,9 @@ public class PruebaDAO {
     {
     	em.merge(prueba1);
     }
+    
+    public void eliminar(Prueba1 prueba1)
+    {
+    	em.remove(em.merge(prueba1));
+    }
 }

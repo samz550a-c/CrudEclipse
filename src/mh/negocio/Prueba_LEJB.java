@@ -41,4 +41,9 @@ public class Prueba_LEJB implements Prueba_LEJBLocal {
     {
     	this.pruebaDAO.modificar(prueba1);
     }
+    
+    public void eliminar(Prueba1 prueba1)
+    {
+    	this.pruebaDAO.eliminar(prueba1);
+    }
 }

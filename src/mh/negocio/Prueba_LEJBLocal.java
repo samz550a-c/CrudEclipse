@@ -14,4 +14,6 @@ public interface Prueba_LEJBLocal {
 	public void guardar(Prueba1 prueba1);
 	
 	public void modificar(Prueba1 prueba1);
+	
+	public void eliminar(Prueba1 prueba1);
 }

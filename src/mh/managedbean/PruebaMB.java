@@ -3,8 +3,10 @@ package mh.managedbean;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.jboss.logging.Logger;
 
@@ -47,11 +49,16 @@ public class PruebaMB {
 		this.origen = "agregar";
 	}
 	
-	public void preparandoRegistro()
+	public void preparandoModificar()
 	{
 		LOG.info("preparandoRegistro()2");
 		LOG.info("this.registroSeleccionado = " + this.registroSeleccionado);
 		this.origen = "modificar";
+	}
+	
+	public void preparandoEliminar()
+	{
+		this.origen = "eliminar";
 	}
 	
 	public void registrarListener()
@@ -71,8 +78,14 @@ public class PruebaMB {
 		{
 			this.prueba_LEJBLocal.modificar(this.registroSeleccionado);
 		}
+		else if( origen.equals("eliminar") )
+		{
+			this.prueba_LEJBLocal.eliminar(this.registroSeleccionado);
+		}
 		
-		LOG.info("debería haber grabado.2");
+		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Se ha realizado el proceso correctamente.");
+        FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+        
 		this.registroSeleccionado = null;
 	}
 	//----------------------------------------------
